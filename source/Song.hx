@@ -200,10 +200,10 @@ class Song
 				{
 					ii[3] = false;
 					ii[4] = TimingStruct.getBeatFromTime(ii[0]);
-				}
 
-				if (ii[3] == 0)
-					ii[3] == false;
+					if (ii[3] == 0)
+						ii[3] == false;
+				}
 			}
 
 			index++;

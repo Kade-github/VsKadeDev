@@ -26,6 +26,9 @@ class DiffCalc
 		// cleaned notes
 		var cleanedNotes:Array<SmallNote> = [];
 
+		if (song == null)
+			return 0.0;
+
 		if (song.notes == null)
 			return 0.0;
 
@@ -54,7 +57,7 @@ class DiffCalc
 		cleanedNotes.sort((a, b) -> Std.int(a.strumTime - b.strumTime));
 
 		if (cleanedNotes.length == 0)
-			return 90000000000000000;
+			return 0;
 
 		var firstNoteTime = cleanedNotes[0].strumTime;
 

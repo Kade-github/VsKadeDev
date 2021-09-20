@@ -542,6 +542,8 @@ class FreeplayState extends MusicBeatState
 					curDifficulty = 1;
 				case "Hard":
 					curDifficulty = 2;
+				default:
+					curDifficulty = 0;
 			}
 		}
 

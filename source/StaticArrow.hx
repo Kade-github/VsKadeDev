@@ -19,6 +19,8 @@ class StaticArrow extends FlxSprite
 		y = yy;
 		super(x, y);
 		updateHitbox();
+
+		antialiasing = true;
 	}
 
 	override function update(elapsed:Float)

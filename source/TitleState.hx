@@ -41,7 +41,7 @@ class TitleState extends MusicBeatState
 	var textGroup:FlxGroup;
 	var ngSpr:FlxSprite;
 
-	var curWacky:Array<String> = [];
+	var curWacky:Array<Array<String>> = [];
 
 	var wackyImage:FlxSprite;
 
@@ -71,7 +71,7 @@ class TitleState extends MusicBeatState
 
 		Highscore.load();
 
-		curWacky = FlxG.random.getObject(getIntroTextShit());
+		curWacky = getIntroTextShit();
 
 		trace('hello');
 
@@ -112,26 +112,16 @@ class TitleState extends MusicBeatState
 		// bg.updateHitbox();
 		add(bg);
 
-		if (Main.watermarks)
-		{
-			logoBl = new FlxSprite(-150, 1500);
-			logoBl.frames = Paths.getSparrowAtlas('KadeEngineLogoBumpin');
-		}
-		else
-		{
-			logoBl = new FlxSprite(-150, -100);
-			logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
-		}
+		logoBl = new FlxSprite(-25, 400);
+		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
 		logoBl.antialiasing = FlxG.save.data.antialiasing;
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
 		logoBl.updateHitbox();
 		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
 
-		gfDance = new FlxSprite(FlxG.width * 0.4, FlxG.height * 0.07);
-		gfDance.frames = Paths.getSparrowAtlas('gfDanceTitle');
-		gfDance.animation.addByIndices('danceLeft', 'gfDance', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
-		gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
+		gfDance = new FlxSprite(FlxG.width * 0.44, FlxG.height * 0.1).loadGraphic(Paths.image("kadedev", "kadedevWeek"));
+		gfDance.angle = 12;
 		gfDance.antialiasing = FlxG.save.data.antialiasing;
 		add(gfDance);
 		add(logoBl);
@@ -221,11 +211,20 @@ class TitleState extends MusicBeatState
 		var firstArray:Array<String> = fullText.split('\n');
 		var swagGoodArray:Array<Array<String>> = [];
 
+		for (i in 0...firstArray.length) // shuffle
+		{
+			var a = Math.floor(Math.random() * firstArray.length);
+			firstArray[i] = firstArray[a];
+			firstArray[a] = firstArray[i];
+		}
+
 		for (i in firstArray)
 		{
 			swagGoodArray.push(i.split('--'));
+			trace(i + "\nArray:\n---\n" + swagGoodArray + "\n---");
 		}
 
+		trace(swagGoodArray);
 		return swagGoodArray;
 	}
 
@@ -251,6 +250,10 @@ class TitleState extends MusicBeatState
 				pressedEnter = true;
 			}
 		}
+		#end
+
+		#if debug
+		FlxG.watch.addQuick("beat", curBeat);
 		#end
 
 		if (pressedEnter && !transitioning && skippedIntro)
@@ -348,71 +351,54 @@ class TitleState extends MusicBeatState
 		super.beatHit();
 
 		logoBl.animation.play('bump', true);
-		danceLeft = !danceLeft;
 
-		if (danceLeft)
-			gfDance.animation.play('danceRight');
-		else
-			gfDance.animation.play('danceLeft');
+		danceLeft = !danceLeft;
 
 		switch (curBeat)
 		{
 			case 0:
 				deleteCoolText();
-			case 1:
-				createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
+			case 2:
+				createCoolText(['KadeDev']);
 			// credTextShit.visible = true;
-			case 3:
-				addMoreText('present');
-			// credTextShit.text += '\npresent...';
-			// credTextShit.addText();
 			case 4:
-				deleteCoolText();
-			// credTextShit.visible = false;
-			// credTextShit.text = 'In association \nwith';
-			// credTextShit.screenCenter();
-			case 5:
-				if (Main.watermarks)
-					createCoolText(['Kade Engine', 'by']);
-				else
-					createCoolText(['In Partnership', 'with']);
-			case 7:
-				if (Main.watermarks)
-					addMoreText('KadeDeveloper');
-				else
-				{
-					addMoreText('Newgrounds');
-					ngSpr.visible = true;
-				}
-			// credTextShit.text += '\nNewgrounds';
+				addMoreText("bonestheskelebunny");
+			case 6:
+				addMoreText("mashprotato");
 			case 8:
-				deleteCoolText();
-				ngSpr.visible = false;
-			// credTextShit.visible = false;
+				addMoreText('present');
 
-			// credTextShit.text = 'Shoutouts Tom Fulp';
-			// credTextShit.screenCenter();
-			case 9:
-				createCoolText([curWacky[0]]);
-			// credTextShit.visible = true;
-			case 11:
-				addMoreText(curWacky[1]);
-			// credTextShit.text += '\nlmao';
+			case 10:
+				deleteCoolText();
+				createCoolText(['A self insert mod']);
+
 			case 12:
-				deleteCoolText();
-			// credTextShit.visible = false;
-			// credTextShit.text = "Friday";
-			// credTextShit.screenCenter();
-			case 13:
-				addMoreText('Friday');
-			// credTextShit.visible = true;
+				addMoreText('super original');
 			case 14:
-				addMoreText('Night');
-			// credTextShit.text += '\nNight';
-			case 15:
-				addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
-
+				addMoreText('pog bot approves');
 			case 16:
+				deleteCoolText();
+				createCoolText([curWacky[0][0]]);
+			case 18:
+				addMoreText(curWacky[0][1]);
+			case 20:
+				deleteCoolText();
+				createCoolText([curWacky[1][0]]);
+			case 22:
+				addMoreText(curWacky[1][1]);
+			case 24:
+				deleteCoolText();
+				createCoolText([curWacky[2][0]]);
+			case 26:
+				addMoreText(curWacky[2][1]);
+			case 28:
+				deleteCoolText();
+				addMoreText("Vs");
+			case 29:
+				addMoreText('Kade');
+			case 30:
+				addMoreText('Developer');
+			case 32:
 				skipIntro();
 		}
 	}
@@ -430,7 +416,7 @@ class TitleState extends MusicBeatState
 			FlxG.camera.flash(FlxColor.WHITE, 4);
 			remove(credGroup);
 
-			FlxTween.tween(logoBl, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
+			FlxTween.tween(logoBl, {y: 50}, 1.4, {ease: FlxEase.expoInOut});
 
 			logoBl.angle = -4;
 
@@ -442,9 +428,9 @@ class TitleState extends MusicBeatState
 					FlxTween.angle(logoBl, logoBl.angle, -4, 4, {ease: FlxEase.quartInOut});
 			}, 0);
 
-      // It always bugged me that it didn't do this before.
-      // Skip ahead in the song to the drop.
-      FlxG.sound.music.time = 9400; // 9.4 seconds
+			// It always bugged me that it didn't do this before.
+			// Skip ahead in the song to the drop.
+			FlxG.sound.music.time = 18850; // 18.85 seconds
 
 			skippedIntro = true;
 		}

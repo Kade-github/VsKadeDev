@@ -581,10 +581,20 @@ class PlayState extends MusicBeatState
 					if (person.curCharacter == char)
 						person.setPosition(pos[0], pos[1]);
 		}
+
+		if (Stage.curStage == "sunset")
+		{
+			dad.setGraphicSize(Std.int(dad.width * 0.8));
+			gf.setGraphicSize(Std.int(gf.width * 0.8));
+			boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.8));
+		}
+
 		for (i in Stage.toAdd)
 		{
+			cast(i, FlxSprite).antialiasing = true;
 			add(i);
 		}
+
 		if (!PlayStateChangeables.Optimize)
 			for (index => array in Stage.layInFront)
 			{
@@ -606,7 +616,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-		camPos = new FlxPoint(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
+		camPos = new FlxPoint(dad.getGraphicMidpoint().x + 200, dad.getGraphicMidpoint().y);
 
 		switch (dad.curCharacter)
 		{
@@ -1520,6 +1530,7 @@ class PlayState extends MusicBeatState
 			skipText.text = "Press Space to Skip Intro";
 			skipText.size = 30;
 			skipText.color = 0xFFADD8E6;
+			skipText.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 2, 1);
 			skipText.cameras = [camHUD];
 			skipText.alpha = 0;
 			FlxTween.tween(skipText, {alpha: 1}, 0.2);
@@ -2487,7 +2498,12 @@ class PlayState extends MusicBeatState
 
 		if (skipActive && Conductor.songPosition >= skipTo)
 		{
-			remove(skipText);
+			FlxTween.tween(skipText, {alpha: 0}, 0.2, {
+				onComplete: function(tw)
+				{
+					remove(skipText);
+				}
+			});
 			skipActive = false;
 		}
 
@@ -2502,10 +2518,12 @@ class PlayState extends MusicBeatState
 
 			vocals.time = Conductor.songPosition;
 			vocals.play();
-			FlxTween.tween(skipText, {alpha: 0}, 0.2, {onComplete: function(tw)
-			{
-				remove(skipText);
-			}});
+			FlxTween.tween(skipText, {alpha: 0}, 0.2, {
+				onComplete: function(tw)
+				{
+					remove(skipText);
+				}
+			});
 			skipActive = false;
 		}
 
@@ -2704,7 +2722,7 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y - 100 + offsetY);
+				camFollow.setPosition(boyfriend.getMidpoint().x - 120 + offsetX, boyfriend.getMidpoint().y - 145 + offsetY);
 
 				#if FEATURE_LUAMODCHART
 				if (luaModchart != null)
@@ -4506,6 +4524,13 @@ class PlayState extends MusicBeatState
 			luaModchart.executeState('beatHit', [curBeat]);
 		}
 		#end
+
+		if (Stage.curStage == "sunset")
+		{
+			cast(Stage.swagBacks["crowdLeft"], FlxSprite).animation.play("bop");
+			cast(Stage.swagBacks["crowdRight"], FlxSprite).animation.play("bop");
+			cast(Stage.swagBacks["crowdMid"], FlxSprite).animation.play("bop");
+		}
 
 		if (currentSection != null)
 		{

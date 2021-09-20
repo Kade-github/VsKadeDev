@@ -470,6 +470,8 @@ class ChartingState extends MusicBeatState
 
 		trace("create");
 
+		updateHeads();
+
 		super.create();
 	}
 
@@ -532,6 +534,8 @@ class ChartingState extends MusicBeatState
 			line.alpha = 0.4;
 			lines.add(line);
 		}
+
+		updateHeads();
 	}
 
 	function addGrid(?divisions:Float = 1)
@@ -1263,6 +1267,8 @@ class ChartingState extends MusicBeatState
 					add(sectionicon);
 				}
 			}
+
+			updateHeads();
 		});
 		check_mustHitSection.checked = true;
 		// _song.needsVoices = check_mustHit.checked;
@@ -1610,14 +1616,6 @@ class ChartingState extends MusicBeatState
 		FlxG.sound.music.pause();
 		if (!PlayState.isSM)
 			vocals.pause();
-
-		FlxG.sound.music.onComplete = function()
-		{
-			if (!PlayState.isSM)
-				vocals.pause();
-			FlxG.sound.music.pause();
-			goToSection(0);
-		};
 	}
 
 	function generateUI():Void
@@ -2381,6 +2379,7 @@ class ChartingState extends MusicBeatState
 		check_snap.checked = doSnapShit;
 
 		Conductor.songPosition = FlxG.sound.music.time;
+
 		_song.song = typingShit.text;
 
 		var timingSeg = TimingStruct.getTimingAtTimestamp(Conductor.songPosition);
@@ -2619,6 +2618,19 @@ class ChartingState extends MusicBeatState
 			{
 				lastSection = curSection;
 
+				var toRemove = [];
+
+				for (i in _song.notes)
+				{
+					if (i.startTime > FlxG.sound.music.length)
+						toRemove.push(i);
+				}
+
+				for (i in toRemove)
+					_song.notes.remove(i);
+
+				toRemove = []; // clear memory
+
 				PlayState.SONG = _song;
 				FlxG.sound.music.stop();
 				if (!PlayState.isSM)
@@ -2638,19 +2650,6 @@ class ChartingState extends MusicBeatState
 				{
 					sectionRenderes.remove(sectionRenderes.members[0], true);
 				}
-
-				var toRemove = [];
-
-				for (i in _song.notes)
-				{
-					if (i.startTime > FlxG.sound.music.length)
-						toRemove.push(i);
-				}
-
-				for (i in toRemove)
-					_song.notes.remove(i);
-
-				toRemove = []; // clear memory
 
 				LoadingState.loadAndSwitchState(new PlayState());
 			}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="crowdLeft.png">
+<!-- Created with Kades Custom Converter -->
+<SubTexture name="Crowd_KadeLeft0000" x="10" y="10" width="1000" height="700" frameX="-0" frameY="-0" frameWidth="1000" frameHeight="700"/>
+<SubTexture name="Crowd_KadeLeft0001" x="10" y="730" width="1000" height="700" frameX="-0" frameY="-0" frameWidth="1000" frameHeight="700"/>
+<SubTexture name="Crowd_KadeLeft0002" x="10" y="1450" width="1000" height="700" frameX="-0" frameY="-0" frameWidth="1000" frameHeight="700"/>
+<SubTexture name="Crowd_KadeLeft0003" x="10" y="2170" width="1000" height="700" frameX="-0" frameY="-0" frameWidth="1000" frameHeight="700"/>
+</TextureAtlas>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="kade_outline.png">
+	<!-- Created with Adobe Animate version 21.0.9.42677 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="idle dance outline0000" x="10" y="10" width="418" height="778"/>
+	<SubTexture name="idle dance outline0001" x="10" y="10" width="418" height="778"/>
+	<SubTexture name="idle dance outline0002" x="438" y="10" width="418" height="778"/>
+	<SubTexture name="idle dance outline0003" x="438" y="10" width="418" height="778"/>
+	<SubTexture name="idle dance outline0004" x="866" y="10" width="418" height="778"/>
+	<SubTexture name="idle dance outline0005" x="866" y="10" width="418" height="778"/>
+	<SubTexture name="idle dance outline0006" x="1294" y="10" width="418" height="778"/>
+	<SubTexture name="idle dance outline0007" x="1294" y="10" width="418" height="778"/>
+	<SubTexture name="idle dance outline0008" x="10" y="798" width="418" height="778"/>
+	<SubTexture name="idle dance outline0009" x="10" y="798" width="418" height="778"/>
+	<SubTexture name="idle dance outline0010" x="438" y="798" width="418" height="778"/>
+	<SubTexture name="idle dance outline0011" x="438" y="798" width="418" height="778"/>
+	<SubTexture name="idle dance outline0012" x="438" y="798" width="418" height="778"/>
+	<SubTexture name="idle dance outline0013" x="438" y="798" width="418" height="778"/>
+</TextureAtlas>

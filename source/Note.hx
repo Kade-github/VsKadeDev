@@ -112,7 +112,7 @@ class Note extends FlxSprite
 			this.strumTime = 0;
 
 		if (!inCharter)
-			y += FlxG.save.data.offset + PlayState.songOffset;
+			strumTime -= FlxG.save.data.offset + PlayState.songOffset;
 
 		this.noteData = noteData;
 

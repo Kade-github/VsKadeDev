@@ -25,30 +25,14 @@ class StoryMenuState extends MusicBeatState
 
 	static function weekData():Array<Dynamic>
 	{
-		return [
-			['Tutorial'],
-			['Bopeebo', 'Fresh', 'Dad Battle'],
-			['Spookeez', 'South', "Monster"],
-			['Pico', 'Philly Nice', "Blammed"],
-			['Satin Panties', "High", "M.I.L.F"],
-			['Cocoa', 'Eggnog', 'Winter Horrorland'],
-			['Senpai', 'Roses', 'Thorns']
-		];
+		return [['Cough', 'Jumpin', 'Banger', 'Finale', 'Happy'],];
 	}
 
 	var curDifficulty:Int = 1;
 
 	public static var weekUnlocked:Array<Bool> = [];
 
-	var weekCharacters:Array<Dynamic> = [
-		['', 'bf', 'gf'],
-		['dad', 'bf', 'gf'],
-		['spooky', 'bf', 'gf'],
-		['pico', 'bf', 'gf'],
-		['mom', 'bf', 'gf'],
-		['parents-christmas', 'bf', 'gf'],
-		['senpai', 'bf', 'gf']
-	];
+	var weekCharacters:Array<Dynamic> = [['kadedev', 'bf', 'gf'],];
 
 	var weekNames:Array<String> = CoolUtil.coolTextFile(Paths.txt('data/weekNames'));
 
@@ -165,7 +149,7 @@ class StoryMenuState extends MusicBeatState
 
 		trace("Line 96");
 
-		grpWeekCharacters.add(new MenuCharacter(0, 100, 0.5, false));
+		grpWeekCharacters.add(new MenuCharacter(0, 100, 0.5, false, "kade_outline", "kadedevWeek", "kadedev", "idle dance outline"));
 		grpWeekCharacters.add(new MenuCharacter(450, 25, 0.9, true));
 		grpWeekCharacters.add(new MenuCharacter(850, 100, 0.5, true));
 
